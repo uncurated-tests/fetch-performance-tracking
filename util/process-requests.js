@@ -1,5 +1,7 @@
 import perfHooks from 'node:perf_hooks'
 export default function processRequests (url, res) {
+    perfHooks.performance.clearMeasures(url);
+
     const requests = [];
     for (let i = 0; i < 10; i++) {
         requests.push(fetch(url));

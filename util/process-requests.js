@@ -1,7 +1,5 @@
 import perfHooks from 'node:perf_hooks'
 export default function processRequests (url, res) {
-    perfHooks.performance.clearMeasures(url);
-
     const requests = [];
     for (let i = 0; i < 10; i++) {
         requests.push(fetch(url));
@@ -10,7 +8,7 @@ export default function processRequests (url, res) {
     Promise.all(requests)
         .then(responses => Promise.all(responses.map(response => response.text())))
         .then(() => {
-            const resources = perfHooks.performance.getEntriesByName(url);
+            const resources = perfHooks.performance.getEntriesByName(url).filter(resource => resource.startTime > perfHooks.performance.now());
             const durations = resources.map(resource => resource.duration);
             const average = durations.reduce((duration, sum) => sum + duration, 0) / durations.length;
             res.send({

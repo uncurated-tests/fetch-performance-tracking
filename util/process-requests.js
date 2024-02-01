@@ -12,7 +12,7 @@ export default function processRequests (url, res) {
             const durations = resources.map(resource => resource.duration);
             const average = durations.reduce((duration, sum) => sum + duration, 0) / durations.length;
             res.send({
-                type: 'https',
+                resource: url,
                 durations: durations,
                 average_duration: average
             });

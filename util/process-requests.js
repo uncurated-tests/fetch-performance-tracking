@@ -11,7 +11,7 @@ export default async function processRequests (host, resource, res) {
     const responses = await Promise.all(requests);
     await Promise.all(responses.map(response => response.text()));
 
-    const entries = perfHooks.performance.getEntriesByName(url);
+    const entries = perfHooks.performance.getEntriesByName(resource);
     const durations = entries.filter(entry => entry.startTime > now).map(entry => entry.duration);
 
     await postDurationMetric(host, resource, durations);

@@ -1,4 +1,5 @@
 import perfHooks from 'node:perf_hooks'
+import { postDurationMetric } from './datadog.js';
 export default function processRequests (url, res) {
     const now = perfHooks.performance.now();
 
@@ -13,6 +14,7 @@ export default function processRequests (url, res) {
             const resources = perfHooks.performance.getEntriesByName(url);
             const durations = resources.filter(resource => resource.startTime > now).map(resource => resource.duration);
             const average = durations.reduce((duration, sum) => sum + duration, 0) / durations.length;
+            postDurationMetric(durations);
             res.send({
                 resource: url,
                 durations: durations,

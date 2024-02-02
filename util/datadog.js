@@ -15,7 +15,7 @@ export async function postDurationMetric (host, resource, durations) {
                     })),
                     resources: [
                         {
-                            name: host.toString().startsWith("localhost") ? "localhost" : host,
+                            name: host.startsWith("localhost") ? "localhost" : host,
                             type: "host",
                         },
                         {

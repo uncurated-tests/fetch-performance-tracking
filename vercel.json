@@ -3,6 +3,10 @@
         {
             "path": "/api/fetch-http",
             "schedule": "0 * * * *"
+        },
+        {
+            "path": "/api/fetch-https",
+            "schedule": "0 * * * *"
         }
     ]
 }

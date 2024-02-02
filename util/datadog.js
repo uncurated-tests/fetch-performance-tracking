@@ -1,5 +1,5 @@
 import { request } from 'undici';
-export async function postDurationMetric (durations, url) {
+export async function postDurationMetric (host, resource, durations) {
     const { statusCode, body } = await request('https://api.datadoghq.com/api/v2/series', {
         method: 'POST',
         body: JSON.stringify({
@@ -13,12 +13,12 @@ export async function postDurationMetric (durations, url) {
                     })),
                     resources: [
                         {
-                            name: process.env.VERCEL_ENV === 'development' ? 'localhost' : process.env.VERCEL_URL,
+                            name: host,
                             type: "host",
                         },
                         {
-                            name: url,
-                            type: "url"
+                            name: resource,
+                            type: "resource"
                         }
                     ]
                 },

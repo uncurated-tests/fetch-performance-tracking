@@ -1,5 +1,11 @@
 import { request } from 'undici';
-export async function postDurationMetric (host, resource, durations) {
+/**
+ * 
+ * @param {string} host 
+ * @param {URL} endpoint 
+ * @param {number[]} durations 
+ */
+export async function postDurationMetric (host, endpoint, durations) {
     console.log('host: ', host.toString())
     console.log('resource: ', resource.toString())
     const { statusCode, body } = await request('https://api.datadoghq.com/api/v2/series', {
@@ -19,8 +25,8 @@ export async function postDurationMetric (host, resource, durations) {
                             type: "host",
                         },
                         {
-                            name: resource,
-                            type: "resource"
+                            name: endpoint.toString(),
+                            type: "endpoint"
                         }
                     ]
                 },

@@ -1,6 +1,6 @@
 import processRequests from '../util/process-requests.js';
-export const maxDuration = 10
-export default function handler(req, res) {
+export const maxDuration = 20;
+export default async function handler(req, res) {
     const url = new URL('https://example.com');
-    processRequests(url, res);
+    await processRequests(url, res);
 }

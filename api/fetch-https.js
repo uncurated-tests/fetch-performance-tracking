@@ -10,8 +10,6 @@ let temp = 'cold';
  * @param {import('node:http').OutgoingMessage} res 
  */
 export default async function handler(req, res) {
-    console.log(req.headers);
-
     const context = {
         host: req.headers.host,
         endpoint: new URL('https://example.com'),

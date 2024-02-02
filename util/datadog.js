@@ -29,7 +29,7 @@ export async function postDurationMetrics (context, durations) {
                             })),
                             resources: [
                                 {
-                                    name: context.host.startsWith("localhost") ? "localhost" : host,
+                                    name: context.host.startsWith("localhost") ? "localhost" : context.host,
                                     type: "host",
                                 },
                                 {

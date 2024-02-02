@@ -1,5 +1,8 @@
-import processRequests from '../util/process-requests.js';
+import { processRequests } from '../util/process-requests.js';
+import { postDurationMetrics } from '../util/datadog.js';
 export const maxDuration = 10;
+
+let temp = 'cold';
 
 /**
  * 
@@ -7,5 +10,21 @@ export const maxDuration = 10;
  * @param {import('node:http').OutgoingMessage} res 
  */
 export default async function handler(req, res) {
-    await processRequests(req.headers.host, new URL('http://example.com'), res);
+    console.log(req.headers);
+
+    const context = {
+        host: req.headers.host,
+        endpoint: new URL('http://example.com'),
+        temp
+    }
+
+    const durations = await processRequests(context);
+    await postDurationMetrics(context, durations);
+
+    res.send({
+        context,
+        durations,
+    });
+
+    temp = 'warm';
 }

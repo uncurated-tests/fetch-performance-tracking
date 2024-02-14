@@ -6,18 +6,17 @@ import { request } from 'undici';
  * @param {{ first: number[]; second: number[] }} durations 
  */
 export async function postDurationMetrics (context, durations) {
-    const headers = {
-        'DD-API-KEY': process.env.DD_API_KEY,
-        'DD-APPLICATION-KEY': process.env.DD_APP_KEY,
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Content-Encoding": "Identity"
-    };
     const responses = await Promise.all(
         Object.entries(durations).map(
             ([ key, durationList ]) => request('https://api.datadoghq.com/api/v2/series', {
                 method: 'POST',
-                headers,
+                headers: {
+                    'DD-API-KEY': process.env.DD_API_KEY,
+                    'DD-APPLICATION-KEY': process.env.DD_APP_KEY,
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Content-Encoding": "Identity"
+                },
                 body: JSON.stringify({
                     series: [
                         {
@@ -45,7 +44,7 @@ export async function postDurationMetrics (context, durations) {
                                     type: "request_order"
                                 },
                                 {
-                                    name: context.isCron,
+                                    name: context.isCron.toString(),
                                     type: "is_cron"
                                 }
                             ]

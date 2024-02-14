@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         host: req.headers.host,
         endpoint: new URL('https://example.com'),
         temp,
-        isCron: isCron(req.headers.authorization)
+        isCron: isCron(req.headers.get('authorization'))
     }
 
     const durations = await processRequests(context);

@@ -13,12 +13,13 @@ let temp = 'cold';
  */
 export default async function handler(req, res) {
     console.log(req.headers);
+    console.log('authorization', req.headers.get('authorization'));
 
     const context = {
         host: req.headers.host,
         endpoint: new URL('http://example.com'),
         temp,
-        isCron: isCron(req.headers.authorization)
+        isCron: isCron(req.headers.get('authorization'))
     }
 
     const durations = await processRequests(context);

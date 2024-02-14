@@ -11,6 +11,8 @@ let temp = 'cold';
  */
 export default async function handler(req, res) {
     console.log(req.headers);
+    console.log('x-vercel-deployment-url', req.headers['x-vercel-deployment-url']);
+    console.log('host', req.headers['host']);
 
     const context = {
         host: req.headers.host,

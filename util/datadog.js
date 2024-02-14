@@ -2,7 +2,7 @@ import { request } from 'undici';
 
 /**
  * 
- * @param {{ endpoint: URL; host: string; temp: 'cold' | 'warm'; }} context 
+ * @param {{ endpoint: URL; host: string; temp: 'cold' | 'warm'; isCron: boolean; }} context 
  * @param {{ first: number[]; second: number[] }} durations 
  */
 export async function postDurationMetrics (context, durations) {
@@ -43,6 +43,10 @@ export async function postDurationMetrics (context, durations) {
                                 {
                                     name: key,
                                     type: "request_order"
+                                },
+                                {
+                                    name: context.isCron,
+                                    type: "is_cron"
                                 }
                             ]
                         },

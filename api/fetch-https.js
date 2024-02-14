@@ -1,5 +1,7 @@
 import { processRequests } from '../util/process-requests.js';
 import { postDurationMetrics } from '../util/datadog.js';
+import { isCron } from '../util/isCron.js';
+
 export const maxDuration = 20;
 
 let temp = 'cold';
@@ -13,7 +15,8 @@ export default async function handler(req, res) {
     const context = {
         host: req.headers.host,
         endpoint: new URL('https://example.com'),
-        temp
+        temp,
+        isCron: isCron(req.headers.authorization)
     }
 
     const durations = await processRequests(context);

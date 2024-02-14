@@ -29,7 +29,7 @@ async function executeRequests(endpoint) {
 
 /**
  * 
- * @param {{ endpoint: URL; host: string; temp: 'cold' | 'warm'; }} context 
+ * @param {{ endpoint: URL; host: string; temp: 'cold' | 'warm'; isCron: boolean; }} context 
  * @returns {Promise<{ first: number[]; second: number[] }>}
  */
 export async function processRequests (context) {

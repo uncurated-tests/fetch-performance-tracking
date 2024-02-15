@@ -46,6 +46,10 @@ export async function postDurationMetrics (context, durations) {
                                 {
                                     name: context.isCron.toString(),
                                     type: "is_cron"
+                                },
+                                {
+                                    name: (process.env.USE_LATEST_FETCH === '1').toString(),
+                                    type: 'use_latest_fetch'
                                 }
                             ]
                         },
